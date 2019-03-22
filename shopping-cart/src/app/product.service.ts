@@ -11,8 +11,8 @@ export class ProductService {
 
   getProducts(): Observable<Product[]> {
     return of([
-      { id: 1, name: 'Shoes', imageUrl: 'https://loremflickr.com/320/240/dog', price: 49.99 },
-      { id: 2, name: 'Milk', imageUrl: 'https://loremflickr.com/640/360', price: 3.99 },
+      { id: 1, name: 'Shoes', imageUrl: 'https://loremflickr.com/320/240/dog', price: 49.99, description: 'Good for your feet.' },
+      { id: 2, name: 'Milk', imageUrl: 'https://loremflickr.com/640/360', price: 3.99, description: 'Delicious.' },
     ]);
   }
 }

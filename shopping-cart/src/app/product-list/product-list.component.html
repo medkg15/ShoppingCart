@@ -7,6 +7,7 @@
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title">{{product.name}}</h5>
+        <p>{{product.description}}</p>
         <p class="card-text">{{product.price | currency}}</p>
         <select #quantity>
           <option *ngFor="let option of quantityOptions" [value]="option">{{option}}</option>

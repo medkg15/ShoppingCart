@@ -37,6 +37,10 @@ export class Cart {
     this.selections = this.selections.filter(currentSelection => currentSelection.product.id !== product.id);
   }
 
+  empty(): void {
+    this.selections = [];
+  }
+
   count(): number {
     return this.selections.map((selection) => selection.quantity).reduce((sum, quantity) => sum += quantity);
   }

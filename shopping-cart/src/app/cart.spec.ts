@@ -3,7 +3,7 @@ import { ProductSelection } from './product-selection';
 import { Product } from './product';
 
 describe('Cart', () => {
-  // some products to be used in various cart tests.
+  // define some products to be used in various cart tests.
   const product1 = new Product();
   product1.id = 1;
 
@@ -59,5 +59,13 @@ describe('Cart', () => {
     cart.add(product1, 2);
     cart.add(product2, 1);
     expect(cart.count()).toBe(3);
+  });
+
+  it('should be emptied', () => {
+    const cart = new Cart();
+    cart.add(product1, 2);
+    cart.add(product2, 1);
+    cart.empty();
+    expect(cart.selections.length).toBe(0);
   });
 });

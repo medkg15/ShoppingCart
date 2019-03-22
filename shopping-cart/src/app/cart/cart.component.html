@@ -15,6 +15,7 @@
         <td>{{selection.product.name}}</td>
         <td>{{selection.product.price | currency}}</td>
         <td>
+          <!-- todo: need a better way to do this. -->
           <input [(ngModel)]="selection.quantity" type="number" min="1" max="10"/>
         </td>
         <td><button (click)="remove(selection.product)">Remove</button></td>

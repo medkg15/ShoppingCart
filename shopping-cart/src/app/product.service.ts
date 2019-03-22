@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Product } from './product';
 import { Observable, of } from 'rxjs';
 
+/** 
+ * Service for providing Product data to the application.
+*/
 @Injectable({
   providedIn: 'root'
 })

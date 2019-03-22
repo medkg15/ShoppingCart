@@ -1,9 +1,13 @@
 import { ProductSelection } from './product-selection';
 import { Product } from './product';
+import { Injectable } from '@angular/core';
 
 /**
  * Represents the product selections made by the user while shopping on the site.
  */
+@Injectable({
+  providedIn: 'root'
+})
 export class Cart {
   constructor() {
 
@@ -42,6 +46,6 @@ export class Cart {
   }
 
   count(): number {
-    return this.selections.map((selection) => selection.quantity).reduce((sum, quantity) => sum += quantity);
+    return this.selections.map((selection) => selection.quantity).reduce((sum, quantity) => sum += quantity, 0);
   }
 }

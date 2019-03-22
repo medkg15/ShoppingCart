@@ -7,6 +7,14 @@
       <div class="card-body">
         <h5 class="card-title">{{product.name}}</h5>
         <p class="card-text">{{product.price | currency}}</p>
+        <select #quantity>
+          <option *ngFor="let option of quantityOptions" [value]="option">{{option}}</option>
+        </select>
+        <button (click)="addToCart(product, quantity.value);">Add to Cart</button>
+        <div class="alert alert-success" role="alert" *ngIf="productAdded?.id === product.id">
+          Added to <a routerLink="/cart">Cart</a>.
+          <button (click)="clearAdd()">x</button>
+        </div>
       </div>
     </div>
   </div>

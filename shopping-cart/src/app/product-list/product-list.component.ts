@@ -10,10 +10,10 @@ import { Cart } from '../cart';
 })
 export class ProductListComponent implements OnInit {
 
-  productAdded: Product;
+  productAdded: Product | null;
 
   quantityOptions = [
-    1, 2, 3, 4, 5, 6, 7, 8
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10
   ];
 
   products: Product[] = [];

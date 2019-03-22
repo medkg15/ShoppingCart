@@ -19,6 +19,6 @@
       "dom"
     ],
     "noImplicitAny": true,
-    "no-var-keyword": true,
+    "strictNullChecks": true,
   }
 }

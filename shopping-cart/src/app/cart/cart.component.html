@@ -1,0 +1,27 @@
+<h1>Your Cart</h1>
+<div *ngIf="cart.selections.length">
+  <div class="shadow-sm p-3 mb-5 bg-white rounded">Total: {{subTotal() | currency}}</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Product</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let selection of cart.selections">
+        <td>{{selection.product.name}}</td>
+        <td>{{selection.product.price | currency}}</td>
+        <td>
+          <input [(ngModel)]="selection.quantity" type="number" min="1" max="10"/>
+        </td>
+        <td><button (click)="remove(selection.product)">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="!cart.selections.length">
+  <p>Your cart is empty.  Check out our great <a routerLink="/products">Products</a>!</p>
+</div>

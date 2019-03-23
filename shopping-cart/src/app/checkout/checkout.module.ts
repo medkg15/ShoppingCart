@@ -3,11 +3,18 @@ import { CommonModule } from '@angular/common';
 import { BillingComponent } from './billing/billing.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { SummaryComponent } from './summary/summary.component';
+import { CheckoutRoutingModule } from './checkout-routing.module';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 @NgModule({
-  declarations: [BillingComponent, ShippingComponent, SummaryComponent],
+  declarations: [
+    BillingComponent,
+    ShippingComponent,
+    SummaryComponent,
+    ConfirmationComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    CheckoutRoutingModule
   ]
 })
 export class CheckoutModule { }

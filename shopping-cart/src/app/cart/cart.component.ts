@@ -15,7 +15,6 @@ export class CartComponent implements OnInit {
   ngOnInit() {
   }
 
-  // should this really be a function, or data binding?
   subTotal(): number {
     return this.cartCalculator.calculateSubTotal(this.cart);
   }

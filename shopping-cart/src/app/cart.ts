@@ -2,6 +2,7 @@ import { ProductSelection } from './product-selection';
 import { Product } from './product';
 import { Injectable } from '@angular/core';
 
+//todo: rename to a service? it basically is one.
 /**
  * Represents the product selections made by the user while shopping on the site.
  */

@@ -1,3 +1,64 @@
-<p>
-  shipping works!
-</p>
+<h3>Shipping Information</h3>
+<form [formGroup]="shippingForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+
+    <div class="col-sm-12 bg-light">
+      <label>
+        * Name:
+        <input type="text" class="form-control" formControlName="name" required [ngClass]="{ 'is-invalid': submitAttempted && shippingForm.controls.name.errors }">
+        <div class="invalid-feedback" *ngIf="shippingForm.controls.name.errors?.required">
+          Name is required.
+        </div>
+      </label>
+    </div>
+
+    <div class="col-sm-12 bg-light">
+      <label>
+        * Street Address:
+        <input type="text" class="form-control" formControlName="street" required [ngClass]="{ 'is-invalid': submitAttempted && shippingForm.controls.street.errors }">
+        <div class="invalid-feedback" *ngIf="shippingForm.controls.street.errors?.required">
+          Street Address is required.
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4 bg-light">
+      <label>
+        * City:
+        <input type="text" class="form-control" formControlName="city" required [ngClass]="{ 'is-invalid': submitAttempted && shippingForm.controls.city.errors }">
+        <div class="invalid-feedback" *ngIf="shippingForm.controls.city.errors?.required">
+          City is required.
+        </div>
+      </label>
+    </div>
+    <div class="col-sm-4 bg-light">
+      <label>
+        * State:
+        <input type="text" class="form-control" formControlName="state" required [ngClass]="{ 'is-invalid': submitAttempted && shippingForm.controls.state.errors }">
+        <div class="invalid-feedback" *ngIf="shippingForm.controls.state.errors?.required">
+          State is required.
+        </div>
+      </label>
+    </div>
+    <div class="col-sm-4 bg-light">
+      <label>
+        * ZIP Code:
+        <input type="text" class="form-control" formControlName="zip" required [ngClass]="{ 'is-invalid': submitAttempted && shippingForm.controls.zip.errors }">
+        <div class="invalid-feedback" *ngIf="shippingForm.controls.zip.errors?.required">
+          ZIP code is required.
+        </div>
+        <div class="invalid-feedback" *ngIf="shippingForm.controls.zip.errors?.pattern">
+          Must be a valid five digit ZIP code.
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <button class="btn btn-primary" type="submit">Continue</button>
+    <a class="btn btn-warning" routerLink="/checkout/billing">Back</a>
+    <a class="btn btn-danger" routerLink="/cart">Cancel</a>
+  </div>
+</form>

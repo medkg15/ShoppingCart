@@ -1,3 +1,59 @@
-<p>
-  billing works!
-</p>
+<h3>Payment Information</h3>
+<form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-sm-12 bg-light">
+      <label>
+        * Card Number:
+        <input type="text" class="form-control" formControlName="cardNumber" required [ngClass]="{ 'is-invalid': submitAttempted && paymentForm.controls.cardNumber.errors }">
+        <div class="invalid-feedback" *ngIf="paymentForm.controls.cardNumber.errors?.required">
+          Card Number is required.
+        </div>
+        <div class="invalid-feedback" *ngIf="paymentForm.controls.cardNumber.errors?.pattern">
+          Must be a valid 12 digit card number.
+        </div>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 bg-light">
+      <label>
+        * Exp Month:
+        <input type="text" class="form-control" formControlName="expirationMonth" required [ngClass]="{ 'is-invalid': submitAttempted && paymentForm.controls.expirationMonth.errors }">
+        <div class="invalid-feedback" *ngIf="paymentForm.controls.expirationMonth.errors?.required">
+          Expiration Month is required.
+        </div>
+        <div class="invalid-feedback" *ngIf="paymentForm.controls.expirationMonth.errors?.expirationMonth">
+          Must be a valid month.
+        </div>
+      </label>
+    </div>
+    <div class="col-sm-4 bg-light">
+      <label>
+        * Exp Year:
+        <input type="text" class="form-control" formControlName="expirationYear" required [ngClass]="{ 'is-invalid': submitAttempted && paymentForm.controls.expirationYear.errors }">
+        <div class="invalid-feedback" *ngIf="paymentForm.controls.expirationYear.errors?.required">
+          Expiration Year is required.
+        </div>
+        <div class="invalid-feedback" *ngIf="paymentForm.controls.expirationYear.errors?.expirationYear">
+          Must be a valid year.
+        </div>
+      </label>
+    </div>
+    <div class="col-sm-4 bg-light">
+      <label>
+        * CVV:
+        <input type="text" class="form-control" formControlName="cvv" required [ngClass]="{ 'is-invalid': submitAttempted && paymentForm.controls.cvv.errors }">
+        <div class="invalid-feedback" *ngIf="paymentForm.controls.cvv.errors?.required">
+          CCV is required.
+        </div>
+        <div class="invalid-feedback" *ngIf="paymentForm.controls.cvv.errors?.pattern">
+          CCV must be three digits.
+        </div>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <button class="btn btn-primary" type="submit">Continue</button>
+    <a class="btn btn-danger" routerLink="/cart">Cancel</a>
+  </div>
+</form>

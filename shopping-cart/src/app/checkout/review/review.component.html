@@ -1,0 +1,35 @@
+<h3>Review Order</h3>
+
+<h4>Products
+  <a class="float-right" routerLink="/cart">Edit</a>
+</h4>
+
+<ul>
+  <li *ngFor="let selection of cart.selections">
+    <td>{{selection.product.name}} ({{selection.quantity}})</td>
+  </li>
+</ul>
+
+<div class="shadow-sm p-3 mb-5 bg-white rounded">Total: {{subTotal() | currency}}</div>
+
+<h4>Billing Information
+  <a class="float-right" routerLink="/checkout/billing">Edit</a>
+</h4>
+
+<ul>
+  <li>Card Number: {{checkoutService.paymentInformation.maskedCardNumber()}}</li>
+  <li>Expriation: {{checkoutService.paymentInformation.expirationMonth}}/{{checkoutService.paymentInformation.expirationYear}}</li>
+</ul>
+
+<h4>Shipping Information
+  <a class="float-right" routerLink="/checkout/shipping">Edit</a>
+</h4>
+
+<p>{{checkoutService.shippingInformation.name}}
+  <br/> {{checkoutService.shippingInformation.street}}
+  <br/> {{checkoutService.shippingInformation.city}} 
+  {{checkoutService.shippingInformation.state | uppercase}} 
+  {{checkoutService.shippingInformation.zip}}
+</p>
+
+<button (click)="submitOrder()">Submit Order</button>

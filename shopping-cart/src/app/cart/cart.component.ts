@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cart } from '../cart';
 import { CartCalculator } from '../cart-calculator';
 import { Product } from '../product';
+import { ProductSelection } from '../product-selection';
 
 @Component({
   selector: 'app-cart',
@@ -21,5 +22,14 @@ export class CartComponent implements OnInit {
 
   remove(product: Product): void {
     this.cart.remove(product);
+  }
+
+  onQuantityChange(selection: ProductSelection, quantity: number) {
+    if (quantity > 0) {
+      selection.quantity = quantity;
+    }
+    else {
+      selection.quantity = 1;
+    }
   }
 }

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShoppingCart.Products;
 using ShoppingCart.Api.Configuration;
+using ShoppingCart.Orders;
 
 namespace ShoppingCart.Api
 {
@@ -32,6 +33,8 @@ namespace ShoppingCart.Api
 
             // bind services to implementations
             services.AddTransient<IProductListHandler, MockProductListHandler>();
+            services.AddTransient<ICreateOrderHandler, MockCreateOrderHandler>();
+            services.AddTransient<IOrderCalculator, BasicOrderCalculator>();
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

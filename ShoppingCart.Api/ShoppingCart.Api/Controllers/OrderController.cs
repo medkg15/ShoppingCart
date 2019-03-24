@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.Api.Models.Order;
+using ShoppingCart.Orders;
 
 namespace ShoppingCart.Api.Controllers
 {
@@ -12,6 +14,15 @@ namespace ShoppingCart.Api.Controllers
     [Route("api/Order")]
     public class OrderController : Controller
     {
+        private readonly ICreateOrderHandler _handler;
+        private readonly IMapper _mapper;
+
+        public OrderController(ICreateOrderHandler handler, IMapper mapper)
+        {
+            this._handler = handler;
+            this._mapper = mapper;
+        }
+
         // POST: api/Order
         [HttpPost]
         public object Post([FromBody]OrderModel model)
@@ -21,9 +32,12 @@ namespace ShoppingCart.Api.Controllers
                 return BadRequest(ModelState);
             }
 
+            var command = _mapper.Map<CreateOrder>(model);
+            _handler.Handle(command);
+
             return Ok(new
             {
-                ConfirmationNumber = "1234",
+                ConfirmationNumber = command.ConfirmationNumber,
                 Success = true
             });
         }

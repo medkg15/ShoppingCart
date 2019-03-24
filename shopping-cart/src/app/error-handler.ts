@@ -1,5 +1,8 @@
 import { Observable, of } from 'rxjs';
 
+/** 
+ * Handle Observable errors by logging them to the console, and potentially returning an alternative value.
+*/
 export class ErrorHandler {
     static handleError<T>(result?: T) {
         return (error: any): Observable<T> => {

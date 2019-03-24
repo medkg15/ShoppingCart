@@ -1,4 +1,12 @@
 <h1>Explore Our Products</h1>
+<div *ngIf="products.length === 0">
+  <p>Whoops, we don't have any products available right now.</p>
+  <p class="small">Is the API Server started?</p>
+  <pre>
+    cd ShoppingCart.Api\ShoppingCart.Api\
+    dotnet run
+  </pre>
+</div>
 <div class="card mb-3" style="max-width: 540px;" *ngFor="let product of products">
   <div class="row no-gutters">
     <div class="col-md-4">

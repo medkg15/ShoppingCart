@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Product } from './product';
 import { Observable, of } from 'rxjs';
+import { ErrorHandler } from './error-handler';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { environment } from './../environments/environment';
+
 
 /** 
  * Service for providing Product data to the application.
@@ -10,12 +15,14 @@ import { Observable, of } from 'rxjs';
 })
 export class ProductService {
 
-  constructor() { }
+  private productUrl = `${environment.apiEndpoint}/product`;
+
+  constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
-    return of([
-      { id: 1, name: 'Shoes', imageUrl: 'https://loremflickr.com/320/240/dog', price: 49.99, description: 'Good for your feet.' },
-      { id: 2, name: 'Milk', imageUrl: 'https://loremflickr.com/640/360', price: 3.99, description: 'Delicious.' },
-    ]);
+    return this.http.get<Product[]>(this.productUrl)
+      .pipe(
+        catchError(ErrorHandler.handleError<Product[]>([]))
+      );
   }
 }

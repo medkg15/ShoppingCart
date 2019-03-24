@@ -30,7 +30,9 @@ namespace ShoppingCart.Orders
             // between the time the user placed them in the cart and creating the order.  they may not be available, be in inventory, etc.
             // some type of versioning would be ideal so that the user isn't being charged a different price than was shown when they selected the item.
 
-            return order.Lines.Select(l => l.ProductId).Select(id => products[id]).Sum();
+            return order.Lines
+                .Select(l => new { ID = l.ProductId, Quantity = l.Quantity})
+                .Select(l => products[l.ID] * l.Quantity).Sum();
         }
     }
 }

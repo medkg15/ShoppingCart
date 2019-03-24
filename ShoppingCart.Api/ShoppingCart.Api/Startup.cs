@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using ShoppingCart.Products;
+using ShoppingCart.Api.Configuration;
 
 namespace ShoppingCart.Api
 {
@@ -21,16 +20,20 @@ namespace ShoppingCart.Api
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper();
             services.AddMvc();
+
+            services.AddAutoMapper(); // auto-mapper to convert back and forth between business objects and API DTOs.
+
+            // allow the AngularApp to access our API through CORS settings
+            services.AddAngularCors(Configuration.GetSection("Cors").Get<CorsSettings>());
+
+            // bind services to implementations
             services.AddTransient<IProductListHandler, MockProductListHandler>();
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

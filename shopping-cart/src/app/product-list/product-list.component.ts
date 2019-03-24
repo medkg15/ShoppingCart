@@ -26,8 +26,7 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: Product, quantity: number): void {
-    // todo: quantity needs to be converted to a number, even though its specified as one?
-    this.cart.add(product, +quantity);
+    this.cart.add(product, quantity);
     this.productAdded = product;
   }
 

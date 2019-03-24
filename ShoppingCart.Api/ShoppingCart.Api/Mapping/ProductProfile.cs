@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ShoppingCart.Api.Models;
+using ShoppingCart.Api.Models.Product;
 using ShoppingCart.Products;
 using System;
 using System.Collections.Generic;

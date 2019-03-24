@@ -24,7 +24,11 @@ namespace ShoppingCart.Api.Configuration
 
             services.AddCors(options =>
             {
-                options.AddPolicy(policyName, builder => builder.WithOrigins(angularUrl));
+                options.AddPolicy(policyName, builder => builder
+                .WithOrigins(angularUrl)
+                .WithMethods("GET", "POST", "OPTIONS")
+                .WithHeaders("content-type")
+                .AllowAnyHeader());
             });
 
             services.Configure<MvcOptions>(options =>

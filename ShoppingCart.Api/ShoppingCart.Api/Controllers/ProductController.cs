@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.Api.Models;
+using ShoppingCart.Api.Models.Product;
 using ShoppingCart.Products;
 
 namespace ShoppingCart.Api.Controllers

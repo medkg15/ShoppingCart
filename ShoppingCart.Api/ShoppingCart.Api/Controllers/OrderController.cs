@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ShoppingCart.Api.Models.Order;
 
 namespace ShoppingCart.Api.Controllers
 {
@@ -13,8 +14,18 @@ namespace ShoppingCart.Api.Controllers
     {
         // POST: api/Order
         [HttpPost]
-        public void Post([FromBody]string value)
+        public object Post([FromBody]OrderModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return Ok(new
+            {
+                ConfirmationNumber = "1234",
+                Success = true
+            });
         }
     }
 }

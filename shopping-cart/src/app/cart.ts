@@ -2,7 +2,6 @@ import { ProductSelection } from './product-selection';
 import { Product } from './product';
 import { Injectable } from '@angular/core';
 
-//todo: rename to a service? it basically is one.
 /**
  * Represents the product selections made by the user while shopping on the site.
  */
@@ -27,7 +26,8 @@ export class Cart {
   }
 
   changeQuantity(product: Product, quantity: number): void {
-    // we'll handle changing a quantity for a product not in the cart gracefully.  just add it to the cart and set the quantity rather than throwing an error.
+    // we'll handle changing a quantity for a product not yet in the cart gracefully.  
+    // just add it to the cart and set the quantity rather than throwing an error.
     const existing = this.selections.find(existingSelection => existingSelection.product.id === product.id);
     if (existing) {
       existing.quantity = quantity;
@@ -38,7 +38,6 @@ export class Cart {
   }
 
   remove(product: Product): void {
-    //todo: better way to do this?
     this.selections = this.selections.filter(currentSelection => currentSelection.product.id !== product.id);
   }
 

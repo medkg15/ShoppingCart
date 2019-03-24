@@ -22,7 +22,7 @@ describe('Cart', () => {
     const cart = new Cart();
     cart.add(product1, 3);
     cart.add(product2, 1);
-    // must use jasmine.objectContaining because we want to check property equality, not reference equality.
+    // check property equality, not reference equality.
     expect(cart.selections).toContain(jasmine.objectContaining({product: product1, quantity: 3}));
     expect(cart.selections).toContain(jasmine.objectContaining({product: product2, quantity: 1}));
   });

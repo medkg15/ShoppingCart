@@ -1,70 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
+import { ErrorHandler } from '../error-handler';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { Order } from './orders/order';
+import { Cart } from '../cart';
+import { PaymentInformation } from './orders/payment-information';
+import { ShippingInformation } from './orders/shipping-information';
+import { OrderResult, OrderFailure, OrderConfirmation } from './orders/order-result';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutService {
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+  }
+
+  private orderUrl = `${environment.apiEndpoint}/order`;
 
   paymentInformation: PaymentInformation = new PaymentInformation();
   shippingInformation: ShippingInformation = new ShippingInformation();
 
-  submitOrder() : Observable<any> {
-    if (!this.paymentInformation.isComplete() || !this.shippingInformation.isComplete()) {
-      throw new Error('Incomplete order.  Cannot be placed.');
-    }
+  submitOrder(cart: Cart): Observable<OrderResult> {
 
-    //todo: call server.
-    return of(true);
-  }
+    const order = new Order(this.paymentInformation, this.shippingInformation, cart.selections);
 
-  addPaymentInformation(info: PaymentInformation) {
-    // cannot accept the object given - may not have the declared methods due to duck typing.
-    // create an instance of the class and fill the properties.
-    this.paymentInformation = new PaymentInformation();
-    this.paymentInformation.cardNumber = info.cardNumber;
-    this.paymentInformation.expirationMonth = info.expirationMonth;
-    this.paymentInformation.expirationYear = info.expirationYear;
-    this.paymentInformation.cvv = info.cvv;
-  }
-
-  addShippingInformation(info: ShippingInformation) {
-    this.shippingInformation = new ShippingInformation();
-    this.shippingInformation.name = info.name;
-    this.shippingInformation.street = info.street;
-    this.shippingInformation.city = info.city;
-    this.shippingInformation.state = info.state;
-    this.shippingInformation.zip = info.zip;
+    return this.http.post<OrderResult>(this.orderUrl, order, httpOptions)
+      .pipe(
+        catchError(ErrorHandler.handleError<OrderResult>(new OrderFailure()))
+      );
   }
 
   clear() {
     this.paymentInformation = new PaymentInformation();
     this.shippingInformation = new ShippingInformation();
   }
-}
-
-class PaymentInformation {
-  cardNumber: string;
-  expirationMonth: number;
-  expirationYear: number;
-  cvv: number;
-  isComplete(): boolean {
-    return !!(this.cardNumber && this.expirationMonth && this.expirationYear && this.cvv);
-  };
-  maskedCardNumber(): string {
-    return "****-****-****-" + this.cardNumber.substring(this.cardNumber.length - 4);
-  };
-}
-
-class ShippingInformation {
-  name: string;
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-  isComplete(): boolean {
-    return !!(this.name && this.street && this.city && this.state && this.zip);
-  };
 }

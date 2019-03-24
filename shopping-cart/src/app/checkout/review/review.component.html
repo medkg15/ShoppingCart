@@ -1,35 +1,41 @@
-<h3>Review Order</h3>
+<div *ngIf="!result || !result.success">
+  <h3>Review Order</h3>
 
-<h4>Products
-  <a class="float-right" routerLink="/cart">Edit</a>
-</h4>
+  <div *ngIf="result && !result.success">
+    <p class="alert alert-danger">Your order failed. Please try again.</p>
+  </div>
 
-<ul>
-  <li *ngFor="let selection of cart.selections">
-    <td>{{selection.product.name}} ({{selection.quantity}})</td>
-  </li>
-</ul>
+  <h4>Products
+    <a class="float-right" routerLink="/cart">Edit</a>
+  </h4>
 
-<div class="shadow-sm p-3 mb-5 bg-white rounded">Total: {{subTotal() | currency}}</div>
+  <ul>
+    <li *ngFor="let selection of cart.selections">
+      <td>{{selection.product.name}} ({{selection.quantity}})</td>
+    </li>
+  </ul>
 
-<h4>Billing Information
-  <a class="float-right" routerLink="/checkout/billing">Edit</a>
-</h4>
+  <div class="shadow-sm p-3 mb-5 bg-white rounded">Total: {{subTotal() | currency}}</div>
 
-<ul>
-  <li>Card Number: {{checkoutService.paymentInformation.maskedCardNumber()}}</li>
-  <li>Expriation: {{checkoutService.paymentInformation.expirationMonth}}/{{checkoutService.paymentInformation.expirationYear}}</li>
-</ul>
+  <h4>Billing Information
+    <a class="float-right" routerLink="/checkout/billing">Edit</a>
+  </h4>
 
-<h4>Shipping Information
-  <a class="float-right" routerLink="/checkout/shipping">Edit</a>
-</h4>
+  <ul>
+    <li>Card Number: {{checkoutService.paymentInformation.maskedCardNumber()}}</li>
+    <li>Expriation: {{checkoutService.paymentInformation.expirationMonth}}/{{checkoutService.paymentInformation.expirationYear}}</li>
+  </ul>
 
-<p>{{checkoutService.shippingInformation.name}}
-  <br/> {{checkoutService.shippingInformation.street}}
-  <br/> {{checkoutService.shippingInformation.city}} 
-  {{checkoutService.shippingInformation.state | uppercase}} 
-  {{checkoutService.shippingInformation.zip}}
-</p>
+  <h4>Shipping Information
+    <a class="float-right" routerLink="/checkout/shipping">Edit</a>
+  </h4>
 
-<button (click)="submitOrder()">Submit Order</button>
+  <p>{{checkoutService.shippingInformation.name}}
+    <br/> {{checkoutService.shippingInformation.street}}
+    <br/> {{checkoutService.shippingInformation.city}} {{checkoutService.shippingInformation.state | uppercase}} {{checkoutService.shippingInformation.zip}}
+  </p>
+
+  <button (click)="submitOrder()">Submit Order</button>
+</div>
+
+<app-confirmation *ngIf="result && result.success" [confirmationNumber]="result.confirmationNumber"></app-confirmation>

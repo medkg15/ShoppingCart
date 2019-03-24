@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms'
 import { AbstractControl } from '@angular/forms';
 import { CheckoutService } from '../checkout.service';
 import { Router } from '@angular/router';
+import { PaymentInformation } from '../orders/payment-information';
 
 
 @Component({
@@ -51,7 +52,13 @@ export class BillingComponent implements OnInit {
       return;
     }
 
-    this.checkoutService.addPaymentInformation(this.paymentForm.value);
+    const info = new PaymentInformation();
+    info.cardNumber = this.paymentForm.value.cardNumber;
+    info.expirationMonth = this.paymentForm.value.expirationMonth;
+    info.expirationYear = this.paymentForm.value.expirationYear;
+    info.cvv = this.paymentForm.value.cvv;
+
+    this.checkoutService.paymentInformation = info;
     this.router.navigate(['checkout', 'shipping']);
   }
 }

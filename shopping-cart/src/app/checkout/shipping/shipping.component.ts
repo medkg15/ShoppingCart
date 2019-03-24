@@ -3,6 +3,7 @@ import { FormGroup, Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { CheckoutService } from '../checkout.service';
 import { Router } from '@angular/router';
+import { ShippingInformation } from '../orders/shipping-information';
 
 @Component({
   selector: 'app-shipping',
@@ -29,7 +30,7 @@ export class ShippingComponent implements OnInit {
 
     state: new FormControl(
       this.checkoutService.shippingInformation.state,
-      [Validators.required]
+      [Validators.required, Validators.pattern(/^(?:A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$/)]
     ),
 
     zip: new FormControl(
@@ -52,8 +53,15 @@ export class ShippingComponent implements OnInit {
       return;
     }
 
-    this.checkoutService.addShippingInformation(this.shippingForm.value);
+    const info = new ShippingInformation();
+    info.name = this.shippingForm.value.name;
+    info.street = this.shippingForm.value.street;
+    info.city = this.shippingForm.value.city;
+    info.state = this.shippingForm.value.state;
+    info.zip = this.shippingForm.value.zip;
+    
+    this.checkoutService.shippingInformation = info;
+
     this.router.navigate(['checkout', 'review']);
   }
-
 }

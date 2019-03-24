@@ -3,6 +3,7 @@ import { CheckoutService } from '../checkout.service';
 import { Router } from '@angular/router';
 import { Cart } from '../../cart';
 import { CartCalculator } from '../../cart-calculator';
+import { OrderResult } from '../orders/order-result';
 
 @Component({
   selector: 'app-review',
@@ -11,21 +12,29 @@ import { CartCalculator } from '../../cart-calculator';
 export class ReviewComponent implements OnInit {
 
   constructor(
-    public checkoutService: CheckoutService, 
-    private router: Router, 
-    public cart: Cart, 
+    public checkoutService: CheckoutService,
+    private router: Router,
+    public cart: Cart,
     private cartCalculator: CartCalculator) { }
+
+  result: OrderResult;
 
   ngOnInit() {
   }
 
   submitOrder() {
-    this.checkoutService.submitOrder().subscribe(() => {
-      // we're going to retain payment + shipping info in case another order is made.
-      // this would _not_ be done in production for security reasons
-      //this.checkoutService.clear();
-      this.cart.empty();
-      this.router.navigate(['checkout', 'confirmation']);
+    this.checkoutService.submitOrder(this.cart).subscribe(result => {
+
+      this.result = result;
+
+      if (result.success) {
+
+        // we're going to retain payment + shipping info in case another order is made.
+        // this would be different if we had auth functionality, etc.
+        // this.checkoutService.clear();
+
+        this.cart.empty();
+      }
     });
   }
 

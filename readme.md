@@ -79,3 +79,4 @@ This application is intended as a demonstration of the technologies and coding p
 - In addition to the Query and Command objects on the server side, introduce Events to notify other system components of new orders, etc.  Useful for a decoupled approach to sending notification emails, integrating with other systems, etc.
 - Introduce security & performance features such as API rate-limiting, API authentication, refined CORS policy, etc.
 - Expand test coverage to verification of Angular Components, the remaining Angular Services and other components, and end to end browser tests.  Further expand .NET test coverage to API controllers, etc.
+- Loading screens / indicators for angular application when performing HTTP requests to the server.

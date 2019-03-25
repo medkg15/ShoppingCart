@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ShippingComponent } from './shipping.component';
 
@@ -8,7 +11,8 @@ describe('ShippingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShippingComponent ]
+      declarations: [ ShippingComponent ],
+      imports: [ ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule ],
     })
     .compileComponents();
   }));
